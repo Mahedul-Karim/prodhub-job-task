@@ -116,7 +116,7 @@ export default async function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {products?.slice(0, 3).map((product: any) => (
               <Card
-                key={product.id}
+                key={product._id}
                 className="group hover:shadow-medium transition-all duration-300 border-0 bg-card"
               >
                 <div className="aspect-square overflow-hidden rounded-t-lg">

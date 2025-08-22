@@ -6,11 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { products } from "@/lib/data";
+import { getProduct } from "@/lib/actions/product";
 import { ArrowRight, Star, ShoppingCart, Shield, Truck } from "lucide-react";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const products = await getProduct();
+
   return (
     <>
       <section className="relative overflow-hidden">
@@ -112,7 +114,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {products.slice(0, 3).map((product) => (
+            {products?.slice(0, 3).map((product: any) => (
               <Card
                 key={product.id}
                 className="group hover:shadow-medium transition-all duration-300 border-0 bg-card"
@@ -145,7 +147,9 @@ export default function Home() {
                   </p>
                   <div className="flex gap-2">
                     <Button asChild className="flex-1">
-                      <Link href={`/products/${product.id}`}>View Details</Link>
+                      <Link href={`/products/${product._id}`}>
+                        View Details
+                      </Link>
                     </Button>
                     <Button variant="outline" size="icon">
                       <ShoppingCart className="h-4 w-4" />

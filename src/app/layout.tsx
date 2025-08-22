@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import AuthContext from "@/context/AuthContext";
+import Header from "@/components/Header";
+import Link from "next/link";
+import { ShoppingBag } from "lucide-react";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -23,11 +23,120 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className}`}>
+          <AuthContext>
+            <Header />
+            {children}
+            <footer className="border-t border-border bg-background">
+              <div className="l-container px-4 sm:px-6 lg:px-8 py-12">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-2">
+                      <ShoppingBag className="h-6 w-6 text-primary" />
+                      <span className="text-lg font-bold text-primary">
+                        ProdHub
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground text-sm">
+                      Your one-stop destination for amazing products and
+                      seamless shopping experience.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="font-semibold mb-4">Products</h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>
+                        <Link
+                          href="/products"
+                          className="hover:text-foreground transition-colors"
+                        >
+                          All Products
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/products"
+                          className="hover:text-foreground transition-colors"
+                        >
+                          Featured
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/products"
+                          className="hover:text-foreground transition-colors"
+                        >
+                          New Arrivals
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="font-semibold mb-4">Company</h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>
+                        <Link
+                          href="/"
+                          className="hover:text-foreground transition-colors"
+                        >
+                          About Us
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/"
+                          className="hover:text-foreground transition-colors"
+                        >
+                          Contact
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/"
+                          className="hover:text-foreground transition-colors"
+                        >
+                          Careers
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="font-semibold mb-4">Support</h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>
+                        <Link
+                          href="/"
+                          className="hover:text-foreground transition-colors"
+                        >
+                          Help Center
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/"
+                          className="hover:text-foreground transition-colors"
+                        >
+                          Privacy Policy
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/"
+                          className="hover:text-foreground transition-colors"
+                        >
+                          Terms of Service
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </AuthContext>
       </body>
     </html>
   );
